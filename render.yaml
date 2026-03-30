@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: antiscam-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: antiscam-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: CORS_ORIGINS
+        value: '["*"]'
+      - key: MAX_PLAY_ATTEMPTS
+        value: "5"
+      - key: QUESTIONS_PER_GAME
+        value: "10"
+
+databases:
+  - name: antiscam-db
+    databaseName: quiz_game_db
+    user: quiz_admin
+    plan: free

@@ -1,0 +1,8 @@
+[build]
+  publish = "build/web"
+  command = "flutter build web --dart-define=BACKEND_URL=$BACKEND_URL"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

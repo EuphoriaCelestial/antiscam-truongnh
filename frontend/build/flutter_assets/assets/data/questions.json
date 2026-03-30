@@ -1,0 +1,602 @@
+[
+  {
+    "question": "Bạn nhận được email từ một người lạ yêu cầu xác nhận tài khoản ngân hàng bằng cách nhập tên đăng nhập và mật khẩu vào một liên kết đính kèm.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn nhận được tin nhắn Zalo từ một người bạn với lời nhắn: \"Tớ đang tham gia cuộc thi, bấm vào link này để bình chọn cho tớ nhé!\"",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Khi truy cập trang web mạng xã hội, bạn thấy có thông báo yêu cầu đăng nhập lại vì \"lý do bảo mật\". Bạn kiểm tra kỹ địa chỉ URL trước khi nhập thông tin.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn nhận được thông báo từ công ty điện lực yêu cầu thanh toán gấp bằng cách nhấp vào một liên kết trong SMS, nếu không sẽ bị cắt điện ngay.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn sử dụng cùng một mật khẩu cho tài khoản ngân hàng, email cá nhân và tài khoản mạng xã hội.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn thường xuyên thay đổi mật khẩu sau mỗi 3-6 tháng và sử dụng mật khẩu mạnh (có cả chữ hoa, chữ thường, số, ký tự đặc biệt).",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn cài đặt ứng dụng trò chơi mới và thấy ứng dụng yêu cầu quyền truy cập vào danh bạ và tin nhắn SMS của bạn. Bạn đồng ý mà không cần đọc kỹ.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn nhận được file đính kèm lạ qua email có tiêu đề hấp dẫn như \"Hình ảnh mới nhất của người nổi tiếng\" và nhấp vào tải xuống để xem.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn luôn bật xác thực hai yếu tố (2FA) cho tất cả các tài khoản quan trọng của mình (email, ngân hàng, mạng xã hội).",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn nhận được tin nhắn từ tổng đài yêu cầu cung cấp mã OTP để cập nhật thông tin sim điện thoại.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn truy cập một trang web mua sắm trực tuyến và thấy trang này không có biểu tượng ổ khóa (HTTPS) trên thanh địa chỉ. Bạn vẫn nhập thông tin thẻ thanh toán.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn thấy một quảng cáo rầm rộ trên Facebook bán hàng hiệu giá siêu rẻ, bạn tìm kiếm tên cửa hàng đó trên Google và đọc các đánh giá trước khi mua.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Một người lạ liên hệ qua mạng xã hội, tự xưng là người quản lý đầu tư và hứa hẹn lợi nhuận 300% trong một tuần, yêu cầu bạn chuyển tiền vốn.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn để thông tin cá nhân (số điện thoại, địa chỉ nhà, trường học) công khai trên trang cá nhân mạng xã hội.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Khi nhận được một đường link rút gọn lạ, bạn sử dụng các công cụ kiểm tra link an toàn trước khi nhấp vào.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn thấy thông báo pop-up trên trình duyệt báo máy tính của bạn đang bị nhiễm virus và yêu cầu bạn cài đặt ngay một phần mềm diệt virus lạ.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn nhận được email cảnh báo rằng tài khoản email của bạn đã bị đăng nhập từ một thiết bị lạ. Bạn thay đổi mật khẩu ngay lập tức và kiểm tra các hoạt động gần đây.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn nhận được cuộc gọi từ người lạ yêu cầu bạn cung cấp mã số định danh cá nhân để xác nhận hồ sơ.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn chỉ tải ứng dụng từ các cửa hàng ứng dụng chính thức (App Store, Google Play) thay vì các trang web không rõ nguồn gốc.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn sử dụng máy tính công cộng hoặc WiFi công cộng để đăng nhập vào tài khoản ngân hàng của mình.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn thấy một bài viết trên mạng xã hội cam kết giúp bạn lấy lại tài khoản Facebook bị khóa nếu bạn cung cấp mật khẩu hiện tại.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn thường xuyên kiểm tra số dư tài khoản ngân hàng và các giao dịch gần đây để phát hiện bất thường.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn cho phép trình duyệt lưu lại mật khẩu của tất cả các trang web quan trọng.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn nhận được tin nhắn từ bạn bè thông báo họ vừa chuyển sang số điện thoại mới, và yêu cầu bạn lưu số mới và chuyển tiền vào đó. Bạn gọi lại số cũ để xác minh.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn nhận được một hợp đồng làm việc online, yêu cầu bạn chụp ảnh chứng minh thư và ảnh chân dung cầm chứng minh thư gửi qua email không mã hóa.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn nhận được cuộc gọi từ người tự xưng là cảnh sát, yêu cầu bạn giữ bí mật tuyệt đối về cuộc gọi này và không được kể cho gia đình.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Kẻ lừa đảo yêu cầu bạn cắt đứt liên lạc với mọi người và chỉ liên lạc qua một ứng dụng chat bí mật để \"hỗ trợ điều tra\".",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn nhận được video call từ người lạ, họ sử dụng công nghệ giả giọng nói (AI Voice) hoặc giả khuôn mặt (Deepfake) của người thân bạn đang gặp nạn. Bạn giữ bình tĩnh và tìm cách liên hệ người thân qua số điện thoại chính thức.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Kẻ lừa đảo gửi cho bạn lệnh bắt giữ giả mạo (có đóng dấu và chữ ký) và yêu cầu bạn chuyển tiền ngay để \"tại ngoại\".",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Khi nhận được thông tin về việc bị đe dọa hoặc bị tống tiền, bạn gọi điện thoại trực tiếp đến đường dây nóng hoặc cơ quan công an gần nhất để trình báo.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn bị yêu cầu tự tạo video bị khống chế và gửi cho kẻ lừa đảo. Bạn tắt điện thoại ngay lập tức và tìm sự hỗ trợ của người lớn.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Người lạ liên tục gọi điện, gây áp lực tâm lý để bạn di chuyển đến một nơi vắng vẻ (nhà nghỉ, khách sạn) để tiện \"làm việc\".",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn cung cấp thông tin cá nhân (CMND/CCCD, hộ chiếu) qua tin nhắn cho kẻ mạo danh công an để chúng \"kiểm tra thông tin hồ sơ\".",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn được yêu cầu tải xuống một ứng dụng lạ (ví dụ: TeamViewer, Zoom không rõ nguồn gốc) để kẻ lừa đảo có thể \"hướng dẫn\" bạn từ xa.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Gia đình bạn nhận được cuộc gọi đòi tiền chuộc con. Gia đình cố gắng kéo dài cuộc nói chuyện để có thời gian xác minh thông tin và báo công an.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn thấy một tài khoản mạng xã hội liên tục chia sẻ các tin tức giả mạo, gây hoang mang về các vụ bắt cóc và lừa đảo. Bạn báo cáo tài khoản đó cho nền tảng.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn bị đe dọa và yêu cầu mua thẻ điện thoại hoặc tiền ảo để làm phí \"giải quyết vụ án\".",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn ghi âm lại cuộc gọi hoặc chụp lại tin nhắn đe dọa để làm bằng chứng khi báo cáo cho cơ quan chức năng.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Kẻ lừa đảo yêu cầu bạn cung cấp mã OTP ngân hàng, nói rằng đây là \"mã xác nhận\" từ phía cơ quan điều tra.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn được mời tham gia một nhóm chat kín, nơi mọi người chia sẻ cách trốn tránh sự giám sát của gia đình và \"làm giàu nhanh chóng\".",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn nhận được tin nhắn từ giáo viên/hiệu trưởng yêu cầu phụ huynh chuyển tiền gấp để đóng \"khoản phí phát sinh đột xuất\". Phụ huynh gọi điện trực tiếp cho nhà trường để xác minh.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn thấy một ứng dụng có giao diện giống hệt ứng dụng của Bộ Công an và được quảng cáo để tra cứu phạt nguội. Bạn tải về và cung cấp thông tin cá nhân.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Khi bị đe dọa, bạn vì quá sợ hãi mà làm theo mọi yêu cầu của kẻ lừa đảo, bao gồm cả việc tự làm tổn thương bản thân.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn thiết lập quyền riêng tư chặt chẽ trên mạng xã hội, giới hạn người xem các bài đăng có thông tin cá nhân, hình ảnh gia đình, và lịch trình.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Kẻ lừa đảo liên tục gọi điện bằng nhiều số khác nhau để gây áp lực. Bạn chặn tất cả các số lạ và chỉ nghe số của người thân.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn nhận được email thông báo có người thân bị tai nạn, yêu cầu chuyển tiền gấp để phẫu thuật. Bạn kiểm tra thông tin bệnh viện được đề cập và liên hệ bệnh viện.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn bị kẻ lạ mặt tống tiền vì hình ảnh cá nhân bị lộ. Bạn chuyển tiền ngay với hy vọng chúng sẽ dừng lại.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn nhận được cuộc gọi từ người lạ biết rõ tên và công việc của bạn, thông báo bạn chưa đóng đủ tiền bảo hiểm xã hội và yêu cầu chuyển tiền.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn ghi lại tên tài khoản, số điện thoại, và các yêu cầu chuyển tiền của kẻ lừa đảo để cung cấp cho cơ quan công an khi tố cáo.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn nhận được một hộp quà chứa một thiết bị điện tử lạ (ví dụ: USB, sạc dự phòng) và được yêu cầu cắm vào máy tính để nhận hướng dẫn.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn được mời tham gia nhóm Zalo/Telegram đầu tư \"lướt sóng\", hứa hẹn lợi nhuận 100% trong 24 giờ và có \"chuyên gia\" đọc lệnh.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn tìm việc làm online và được yêu cầu chuyển tiền đặt cọc để nhận đồng phục/tài liệu công việc.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn quyết định nghiên cứu kỹ về một nền tảng đầu tư mới, tìm kiếm các bài báo cảnh báo, và xem xét giấy phép hoạt động của công ty trước khi bỏ tiền vào.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn được mời tham gia kiếm tiền bằng cách like/share bài viết và được yêu cầu đóng một khoản phí thành viên để \"nâng cấp\" nhiệm vụ.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn nhận được tin nhắn từ ngân hàng thông báo đã có khoản vay mới được duyệt cho bạn, kèm theo link xác nhận. Bạn gọi điện lên tổng đài ngân hàng để xác minh.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn được yêu cầu chụp ảnh thẻ ngân hàng hai mặt để \"nhận lương\" từ một công việc online.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn chỉ đầu tư vào các kênh đã được cấp phép hoạt động bởi cơ quan quản lý nhà nước.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Một người lạ liên hệ, nói rằng họ có thể giúp bạn xóa nợ thẻ tín dụng nếu bạn cung cấp mã OTP của ngân hàng.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn bảo mật ví điện tử bằng mật khẩu mạnh và không chia sẻ mã PIN cho bất kỳ ai.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn được mời tham gia một hội thảo online về kiếm tiền thụ động, nhưng trước khi tham gia phải đăng ký và đóng một khoản phí hội viên.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn kiểm tra danh sách các trang web lừa đảo đã được cảnh báo bởi Bộ Công an hoặc các cơ quan truyền thông trước khi tham gia giao dịch.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn thấy một quảng cáo cho vay tiền online với lãi suất cực thấp và không cần bất kỳ giấy tờ nào.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn nhận được một email từ \"sở thuế\" thông báo bạn được hoàn lại thuế và yêu cầu nhấp vào link để điền thông tin tài khoản nhận tiền.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn được người quen giới thiệu tham gia sàn đầu tư tiền ảo mới, bạn chỉ đầu tư với số tiền nhỏ có thể mất được và không vay mượn.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn tải các ứng dụng giao dịch tài chính từ link quảng cáo trên mạng xã hội.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn được thuê làm cộng tác viên nhập liệu, công việc yêu cầu bạn cài đặt một ứng dụng lạ để theo dõi giờ làm việc.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Khi bị lỗ trong đầu tư, bạn bình tĩnh rút vốn thay vì cố gắng đầu tư thêm tiền vào để \"gỡ gạc\" theo lời dụ dỗ của kẻ lừa đảo.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn tìm kiếm thông tin chính thức từ công ty hoặc tổ chức tuyển dụng qua trang web chính thức hoặc số điện thoại công ty.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn nhận được email có file PDF được bảo vệ bằng mật khẩu lạ, yêu cầu bạn nhập mật khẩu của email để mở file.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn được mời tham gia một dự án NFT/tiền ảo và được yêu cầu kết nối ví điện tử của mình với một trang web mới lạ.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn thường xuyên cập nhật phần mềm bảo mật và hệ điều hành trên máy tính và điện thoại.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn thấy một người nổi tiếng quảng cáo một sản phẩm đầu tư. Bạn tin tưởng tuyệt đối và đổ hết tiền tiết kiệm vào.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn nhận được tin nhắn chúc mừng bạn đã trúng một voucher du lịch miễn phí và yêu cầu bạn cung cấp thông tin chuyến bay gần đây nhất để \"xác minh\".",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn đặt hạn mức chi tiêu hàng ngày/tháng cho thẻ thanh toán trực tuyến để hạn chế thiệt hại nếu bị lộ thông tin.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Khi bị lừa đảo tài chính, bạn xóa ngay tất cả các bằng chứng vì sợ bị trừng phạt.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Một người lớn tuổi lạ mặt trên mạng xã hội liên tục gửi quà tặng và lời khen cho bạn, sau đó dụ dỗ bạn ra ngoài gặp mặt riêng.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn không bao giờ đồng ý gửi ảnh hoặc video riêng tư của mình cho người quen trên mạng, kể cả khi họ hứa sẽ xóa ngay sau khi xem.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn luôn nói với bố mẹ hoặc người lớn tin cậy về những mối quan hệ mới và những lời đề nghị đáng ngờ trên mạng.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Một người lạ liên hệ qua game online và yêu cầu bạn cung cấp tên, trường học, và lịch trình học tập để \"tặng vật phẩm\".",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn bị một nhóm bạn online bắt nạt, sỉ nhục, và yêu cầu bạn chia sẻ bí mật cá nhân để chúng giữ im lặng.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn chặn (block) ngay lập tức những tài khoản sử dụng ngôn ngữ tục tĩu hoặc đe dọa bạn.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn được một người lạ ở xa mời tham gia một sự kiện ngoài đời thật. Bạn rủ thêm bạn bè đi cùng và thông báo cho gia đình địa điểm gặp mặt.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Một người bạn online bắt đầu hỏi những câu hỏi quá riêng tư về gia đình và tài chính của bạn.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn chỉ chấp nhận lời mời kết bạn từ những người bạn thực sự quen biết ngoài đời.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn tham gia vào các cuộc tranh luận gay gắt với người lạ trên mạng xã hội, tiết lộ các thông tin cá nhân vì tức giận.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn sử dụng biệt danh thay vì tên thật khi tham gia các diễn đàn hoặc trò chơi online.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn thấy bạn bè bị một người lạ quấy rối trên mạng. Bạn chủ động liên hệ gia đình bạn đó hoặc báo cáo sự việc.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Một người tự xưng là \"thợ săn tài năng\" yêu cầu bạn thực hiện một buổi chụp ảnh/quay phim tại một địa điểm kín đáo để casting.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn cung cấp vị trí hiện tại (Location) của mình cho tất cả các ứng dụng trên điện thoại.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn nhận được tin nhắn \"khuyến khích\" bạn uống một loại thuốc lạ để \"tăng cường sức khỏe\".",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn không chia sẻ hình ảnh vé máy bay hoặc thẻ lên máy bay có mã QR công khai lên mạng xã hội.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn nhận được lời mời tham gia một cuộc thi cần tải lên ảnh chụp toàn bộ giấy khai sinh để xác minh tuổi.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn kiểm tra kỹ cài đặt quyền riêng tư của các bài đăng cũ để đảm bảo không còn thông tin nhạy cảm nào bị công khai.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn đồng ý trò chuyện video call với người lạ chỉ vì họ hứa hẹn sẽ tặng bạn vật phẩm game quý hiếm.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn bị người yêu online (chưa từng gặp mặt) yêu cầu chụp ảnh chân dung để chứng minh bạn không phải là robot.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn gặp một người bạn online ở quán cà phê. Bạn ngồi ở khu vực đông người và yêu cầu bạn bè gọi điện kiểm tra bạn trong lúc gặp.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn tham gia một nhóm kín và thấy thành viên trong nhóm công khai chia sẻ thông tin cá nhân và số điện thoại của người khác. Bạn thoát nhóm và báo cáo.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Một người lạ nhắn tin đề nghị bạn tự cách ly tại nhà và bật camera giám sát để họ \"điều tra ma túy\".",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "B"
+  },
+  {
+    "question": "Bạn tự tìm hiểu và ghi nhớ các số điện thoại khẩn cấp của công an địa phương.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  },
+  {
+    "question": "Bạn bị một người lạ nhắn tin đe dọa. Bạn báo cáo ngay lập tức lên nền tảng mạng xã hội và chặn mọi liên lạc với người đó.",
+    "optionA": "An toàn",
+    "optionB": "Không an toàn",
+    "correctAnswer": "A"
+  }
+]
