@@ -117,7 +117,7 @@
     },
     {
       "name": "characters",
-      "rootUri": "file:///home/euphoria/.pub-cache/hosted/pub.dev/characters-1.4.0",
+      "rootUri": "file:///home/euphoria/.pub-cache/hosted/pub.dev/characters-1.4.1",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -156,6 +156,12 @@
       "rootUri": "file:///home/euphoria/.pub-cache/hosted/pub.dev/convert-3.1.2",
       "packageUri": "lib/",
       "languageVersion": "3.4"
+    },
+    {
+      "name": "cross_file",
+      "rootUri": "file:///home/euphoria/.pub-cache/hosted/pub.dev/cross_file-0.3.5+2",
+      "packageUri": "lib/",
+      "languageVersion": "3.8"
     },
     {
       "name": "crypto",
@@ -206,6 +212,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "file_picker",
+      "rootUri": "file:///home/euphoria/.pub-cache/hosted/pub.dev/file_picker-8.0.7",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "fixnum",
       "rootUri": "file:///home/euphoria/.pub-cache/hosted/pub.dev/fixnum-1.1.1",
       "packageUri": "lib/",
@@ -213,9 +225,9 @@
     },
     {
       "name": "flutter",
-      "rootUri": "file:///home/euphoria/flutter/packages/flutter",
+      "rootUri": "file:///home/euphoria/snap/flutter/common/flutter/packages/flutter",
       "packageUri": "lib/",
-      "languageVersion": "3.8"
+      "languageVersion": "3.9"
     },
     {
       "name": "flutter_animate",
@@ -228,6 +240,12 @@
       "rootUri": "file:///home/euphoria/.pub-cache/hosted/pub.dev/flutter_lints-3.0.2",
       "packageUri": "lib/",
       "languageVersion": "3.1"
+    },
+    {
+      "name": "flutter_plugin_android_lifecycle",
+      "rootUri": "file:///home/euphoria/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.34",
+      "packageUri": "lib/",
+      "languageVersion": "3.9"
     },
     {
       "name": "flutter_shaders",
@@ -243,15 +261,15 @@
     },
     {
       "name": "flutter_test",
-      "rootUri": "file:///home/euphoria/flutter/packages/flutter_test",
+      "rootUri": "file:///home/euphoria/snap/flutter/common/flutter/packages/flutter_test",
       "packageUri": "lib/",
-      "languageVersion": "3.8"
+      "languageVersion": "3.9"
     },
     {
       "name": "flutter_web_plugins",
-      "rootUri": "file:///home/euphoria/flutter/packages/flutter_web_plugins",
+      "rootUri": "file:///home/euphoria/snap/flutter/common/flutter/packages/flutter_web_plugins",
       "packageUri": "lib/",
-      "languageVersion": "3.8"
+      "languageVersion": "3.9"
     },
     {
       "name": "glob",
@@ -369,15 +387,15 @@
     },
     {
       "name": "matcher",
-      "rootUri": "file:///home/euphoria/.pub-cache/hosted/pub.dev/matcher-0.12.17",
+      "rootUri": "file:///home/euphoria/.pub-cache/hosted/pub.dev/matcher-0.12.19",
       "packageUri": "lib/",
-      "languageVersion": "3.4"
+      "languageVersion": "3.7"
     },
     {
       "name": "material_color_utilities",
-      "rootUri": "file:///home/euphoria/.pub-cache/hosted/pub.dev/material_color_utilities-0.11.1",
+      "rootUri": "file:///home/euphoria/.pub-cache/hosted/pub.dev/material_color_utilities-0.13.0",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "3.5"
     },
     {
       "name": "meta",
@@ -549,9 +567,9 @@
     },
     {
       "name": "sky_engine",
-      "rootUri": "file:///home/euphoria/flutter/bin/cache/pkg/sky_engine",
+      "rootUri": "file:///home/euphoria/snap/flutter/common/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
-      "languageVersion": "3.8"
+      "languageVersion": "3.9"
     },
     {
       "name": "source_gen",
@@ -657,9 +675,9 @@
     },
     {
       "name": "test_api",
-      "rootUri": "file:///home/euphoria/.pub-cache/hosted/pub.dev/test_api-0.7.7",
+      "rootUri": "file:///home/euphoria/.pub-cache/hosted/pub.dev/test_api-0.7.10",
       "packageUri": "lib/",
-      "languageVersion": "3.5"
+      "languageVersion": "3.7"
     },
     {
       "name": "typed_data",
@@ -837,8 +855,8 @@
     }
   ],
   "generator": "pub",
-  "generatorVersion": "3.10.1",
-  "flutterRoot": "file:///home/euphoria/flutter",
-  "flutterVersion": "3.38.3",
+  "generatorVersion": "3.11.4",
+  "flutterRoot": "file:///home/euphoria/snap/flutter/common/flutter",
+  "flutterVersion": "3.41.6",
   "pubCache": "file:///home/euphoria/.pub-cache"
 }

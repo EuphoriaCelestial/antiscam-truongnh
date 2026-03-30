@@ -19,6 +19,7 @@ import 'screens/multiplayer/join_room_screen.dart';
 import 'screens/multiplayer/multiplayer_leaderboard_screen.dart';
 import 'screens/documents/document_list_screen.dart';
 import 'screens/documents/document_detail_screen.dart';
+import 'screens/admin/admin_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -168,6 +169,10 @@ class MyApp extends StatelessWidget {
             final id = int.parse(state.pathParameters['id']!);
             return DocumentDetailScreen(documentId: id);
           },
+        ),
+        GoRoute(
+          path: '/admin',
+          builder: (context, state) => const AdminScreen(),
         ),
       ],
     );

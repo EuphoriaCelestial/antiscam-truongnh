@@ -2,8 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'dart:math';
+import 'package:http/http.dart' as http;
 
 import '../models/models.dart';
+import '../config/api_config.dart';
 
 class GameProvider extends ChangeNotifier {
   List<Question> _questions = [];
@@ -25,17 +27,29 @@ class GameProvider extends ChangeNotifier {
   int get remainingQuestions => totalQuestions - _currentQuestionIndex;
 
   Future<void> loadQuestions() async {
+    // Try API first, fall back to bundled JSON
+    try {
+      final response = await http.get(Uri.parse(ApiConfig.questions))
+          .timeout(const Duration(seconds: 5));
+      if (response.statusCode == 200) {
+        final List<dynamic> jsonData = jsonDecode(response.body);
+        if (jsonData.isNotEmpty) {
+          _questions = jsonData.map((q) => Question.fromJson(q)).toList();
+          _questions.shuffle();
+          _questions = _questions.take(10).toList();
+          notifyListeners();
+          return;
+        }
+      }
+    } catch (_) {}
+
+    // Fallback: load from bundled asset
     try {
       final String data = await rootBundle.loadString('assets/data/questions.json');
       final List<dynamic> jsonData = jsonDecode(data);
       _questions = jsonData.map((q) => Question.fromJson(q)).toList();
-      
-      // Shuffle questions for randomness
       _questions.shuffle();
-      
-      // Take only 10 questions
       _questions = _questions.take(10).toList();
-      
       notifyListeners();
     } catch (e) {
       print('Error loading questions: $e');

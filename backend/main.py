@@ -1,8 +1,9 @@
-from fastapi import FastAPI, Depends, HTTPException, status, WebSocket, WebSocketDisconnect, Request
+from fastapi import FastAPI, Depends, HTTPException, status, WebSocket, WebSocketDisconnect, Request, UploadFile, File
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from datetime import timedelta, datetime
@@ -10,13 +11,15 @@ from pydantic import BaseModel, ValidationError
 import string
 import random
 import json
+import os
+import shutil
 
-from database import get_db, init_db
-from models import User, Room, GameSession, Document, Leaderboard, RoomStatus, GameMode
+from database import get_db, init_db, SessionLocal
+from models import User, Room, GameSession, Document, Leaderboard, Question, RoomStatus, GameMode
 from auth import (
     authenticate_user, create_access_token, get_current_user,
     UserCreate, UserResponse, Token, create_user, sanitize_input,
-    rate_limiter, ACCESS_TOKEN_EXPIRE_MINUTES
+    get_password_hash, rate_limiter, ACCESS_TOKEN_EXPIRE_MINUTES
 )
 
 app = FastAPI(title="Quiz Game API", version="1.0.0")
@@ -29,6 +32,20 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Serve uploaded files as static
+UPLOADS_DIR = os.getenv("UPLOADS_DIR", "uploads")
+os.makedirs(f"{UPLOADS_DIR}/pdfs", exist_ok=True)
+os.makedirs(f"{UPLOADS_DIR}/videos", exist_ok=True)
+app.mount("/uploads", StaticFiles(directory=UPLOADS_DIR), name="uploads")
+
+
+# Admin dependency
+async def get_admin_user(current_user: User = Depends(get_current_user)):
+    if not current_user.is_admin:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    return current_user
+
 
 # Custom validation error handler
 @app.exception_handler(RequestValidationError)
@@ -55,8 +72,64 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 # Initialize database on startup
 @app.on_event("startup")
 async def startup_event():
-    init_db()
-    print("Database initialized successfully")
+    try:
+        init_db()
+        print("Database initialized successfully")
+    except Exception as e:
+        print(f"Database initialization error: {e}")
+
+    # Create admin user from env vars
+    admin_username = os.getenv("ADMIN_USERNAME")
+    admin_password = os.getenv("ADMIN_PASSWORD")
+    if admin_username and admin_password:
+        db = SessionLocal()
+        try:
+            existing = db.query(User).filter(User.username == admin_username).first()
+            if not existing:
+                admin = User(
+                    username=admin_username,
+                    email=f"{admin_username}@admin.local",
+                    hashed_password=get_password_hash(admin_password),
+                    is_admin=True,
+                    is_active=True,
+                    play_attempts=5,
+                )
+                db.add(admin)
+                db.commit()
+                print(f"Admin user '{admin_username}' created")
+            elif not existing.is_admin:
+                existing.is_admin = True
+                db.commit()
+                print(f"User '{admin_username}' upgraded to admin")
+        except Exception as e:
+            print(f"Admin seeding error: {e}")
+        finally:
+            db.close()
+
+    # Seed questions from JSON file if DB is empty
+    db = SessionLocal()
+    try:
+        if db.query(Question).count() == 0:
+            for seed_path in ["questions_seed.json", "assets/data/questions.json"]:
+                try:
+                    with open(seed_path, encoding="utf-8") as f:
+                        qs = json.load(f)
+                    for q in qs:
+                        db.add(Question(
+                            question=q["question"],
+                            option_a=q["optionA"],
+                            option_b=q["optionB"],
+                            correct_answer=q["correctAnswer"],
+                        ))
+                    db.commit()
+                    print(f"Seeded {len(qs)} questions from {seed_path}")
+                    break
+                except FileNotFoundError:
+                    continue
+    except Exception as e:
+        print(f"Question seeding error: {e}")
+    finally:
+        db.close()
 
 
 # ===========================
@@ -155,6 +228,23 @@ class LeaderboardEntry(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class QuestionResponse(BaseModel):
+    question: str
+    optionA: str
+    optionB: str
+    correctAnswer: str
+
+
+class DocumentCreateAdmin(BaseModel):
+    title: str
+    content: str
+    author: Optional[str] = None
+    category: Optional[str] = None
+    pdf_url: Optional[str] = None
+    video_url: Optional[str] = None
+    tags: Optional[str] = None
 
 
 # ===========================
@@ -678,6 +768,108 @@ def root():
 @app.get("/health")
 def health_check():
     return {"status": "healthy"}
+
+
+# ===========================
+# Questions Endpoint
+# ===========================
+
+@app.get("/api/quiz/questions", response_model=List[QuestionResponse])
+def get_questions(db: Session = Depends(get_db)):
+    """Get all quiz questions"""
+    questions = db.query(Question).all()
+    return [
+        QuestionResponse(
+            question=q.question,
+            optionA=q.option_a,
+            optionB=q.option_b,
+            correctAnswer=q.correct_answer,
+        )
+        for q in questions
+    ]
+
+
+# ===========================
+# Admin Endpoints
+# ===========================
+
+@app.post("/api/admin/upload/questions")
+async def upload_questions(
+    file: UploadFile = File(...),
+    admin: User = Depends(get_admin_user),
+    db: Session = Depends(get_db),
+):
+    """Upload Excel file to replace all quiz questions"""
+    try:
+        import openpyxl
+        wb = openpyxl.load_workbook(file.file)
+        ws = wb.active
+        new_questions = []
+        for row in ws.iter_rows(min_row=2, values_only=True):
+            if row[0]:
+                new_questions.append(Question(
+                    question=str(row[0]),
+                    option_a=str(row[1]) if row[1] else "",
+                    option_b=str(row[2]) if row[2] else "",
+                    correct_answer=str(row[3]).strip().upper() if row[3] else "A",
+                ))
+        db.query(Question).delete()
+        db.add_all(new_questions)
+        db.commit()
+        return {"message": f"Uploaded {len(new_questions)} questions successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Failed to parse Excel file: {str(e)}")
+
+
+@app.post("/api/admin/upload/pdf")
+async def upload_pdf(
+    file: UploadFile = File(...),
+    admin: User = Depends(get_admin_user),
+):
+    """Upload a PDF file and return its URL"""
+    filename = file.filename.replace(" ", "_")
+    path = f"{UPLOADS_DIR}/pdfs/{filename}"
+    with open(path, "wb") as f:
+        shutil.copyfileobj(file.file, f)
+    base_url = os.getenv("BASE_URL", "http://localhost:8000")
+    return {"url": f"{base_url}/uploads/pdfs/{filename}", "filename": filename}
+
+
+@app.post("/api/admin/upload/video")
+async def upload_video(
+    file: UploadFile = File(...),
+    admin: User = Depends(get_admin_user),
+):
+    """Upload a video file and return its URL"""
+    filename = file.filename.replace(" ", "_")
+    path = f"{UPLOADS_DIR}/videos/{filename}"
+    with open(path, "wb") as f:
+        shutil.copyfileobj(file.file, f)
+    base_url = os.getenv("BASE_URL", "http://localhost:8000")
+    return {"url": f"{base_url}/uploads/videos/{filename}", "filename": filename}
+
+
+@app.post("/api/admin/documents", response_model=DocumentResponse)
+def create_document_admin(
+    doc: DocumentCreateAdmin,
+    admin: User = Depends(get_admin_user),
+    db: Session = Depends(get_db),
+):
+    """Create a document record (after uploading files)"""
+    new_doc = Document(
+        title=doc.title,
+        content=doc.content,
+        author=doc.author,
+        category=doc.category,
+        pdf_url=doc.pdf_url,
+        video_url=doc.video_url,
+        tags=doc.tags,
+        is_published=True,
+    )
+    db.add(new_doc)
+    db.commit()
+    db.refresh(new_doc)
+    return new_doc
 
 
 if __name__ == "__main__":

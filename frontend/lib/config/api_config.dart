@@ -19,6 +19,15 @@ class ApiConfig {
   static String get documents => '$apiUrl/documents';
   static String get leaderboard => '$apiUrl/leaderboard/global';
 
+  // Quiz
+  static String get questions => '$apiUrl/quiz/questions';
+
+  // Admin
+  static String get adminUploadQuestions => '$apiUrl/admin/upload/questions';
+  static String get adminUploadPdf => '$apiUrl/admin/upload/pdf';
+  static String get adminUploadVideo => '$apiUrl/admin/upload/video';
+  static String get adminDocuments => '$apiUrl/admin/documents';
+
   // WebSocket
   static String roomWebSocket(String roomCode) => '$wsBaseUrl/ws/room/$roomCode';
 }

@@ -21,10 +21,23 @@ class User(Base):
     games_played = Column(Integer, default=0)
     created_at = Column(DateTime, default=datetime.utcnow)
     is_active = Column(Boolean, default=True)
+    is_admin = Column(Boolean, default=False)
 
     # Relationships
     game_sessions = relationship("GameSession", back_populates="user")
     created_rooms = relationship("Room", back_populates="creator")
+
+
+class Question(Base):
+    """Quiz question model"""
+    __tablename__ = "questions"
+
+    id = Column(Integer, primary_key=True, index=True)
+    question = Column(Text, nullable=False)
+    option_a = Column(String(500), nullable=False)
+    option_b = Column(String(500), nullable=False)
+    correct_answer = Column(String(1), nullable=False)  # 'A' or 'B'
+    created_at = Column(DateTime, default=datetime.utcnow)
 
 
 class RoomStatus(str, enum.Enum):

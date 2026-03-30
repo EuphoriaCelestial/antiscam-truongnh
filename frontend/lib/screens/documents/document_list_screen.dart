@@ -41,7 +41,7 @@ class _DocumentListScreenState extends State<DocumentListScreen> {
     AssetItem(
       id: '2',
       title: 'O1M EBook',
-      path: 'assets/pdf/O1M_EBook (1).pdf',
+      path: 'assets/pdf/O1M_EBook.pdf',
       type: AssetType.document,
       description: 'Sách điện tử O1M',
     ),
@@ -124,17 +124,17 @@ class _DocumentListScreenState extends State<DocumentListScreen> {
         title: Row(
           children: [
             Image.asset(
-              'images/AppBar_Ico_1.png',
+              'assets/images/AppBar_Ico_1.png',
               height: 80,
-              errorBuilder: (context, error, stackTrace) => 
+              errorBuilder: (context, error, stackTrace) =>
                 const Icon(Icons.image, size: 80, color: Colors.white),
             ),
             const SizedBox(width: 12),
-            
+
             Image.asset(
-              'images/AppBar_Ico_2.png',
+              'assets/images/AppBar_Ico_2.png',
               height: 80,
-              errorBuilder: (context, error, stackTrace) => 
+              errorBuilder: (context, error, stackTrace) =>
                 const Icon(Icons.image, size: 80, color: Colors.white),
             ),
             const SizedBox(width: 16),
@@ -156,9 +156,9 @@ class _DocumentListScreenState extends State<DocumentListScreen> {
             const SizedBox(width: 16),
             
             Image.asset(
-              'images/AppBar_Ico_3.png',
+              'assets/images/AppBar_Ico_3.png',
               height: 80,
-              errorBuilder: (context, error, stackTrace) => 
+              errorBuilder: (context, error, stackTrace) =>
                 const Icon(Icons.image, size: 80, color: Colors.white),
             ),
             const SizedBox(width: 16),
@@ -687,8 +687,9 @@ class _VideoPlayerWidgetState extends State<_VideoPlayerWidget> {
   void _initializeVideo() async {
     try {
       if (kIsWeb) {
-        // For web, use network controller with asset URL
-        final videoUrl = Uri.base.resolve(widget.assetPath).toString();
+        // Flutter web nests assets under assets/assets/... in the build output
+        // final videoUrl = Uri.base.resolve('assets/${widget.assetPath}').toString();
+        final videoUrl = Uri.base.resolve('assets/${widget.assetPath}').toString(); 
         _controller = VideoPlayerController.network(videoUrl);
       } else {
         // For mobile, use asset controller
@@ -816,7 +817,13 @@ class _WebPdfViewerState extends State<_WebPdfViewer> {
   }
 
   void _registerIframe() {
-    final pdfUrl = Uri.base.resolve(widget.assetPath).toString();
+    // Flutter web nests assets under assets/assets/... in the build output
+    // Encode each path segment to handle filenames with spaces
+    final encodedPath = 'assets/${widget.assetPath}'
+        .split('/')
+        .map(Uri.encodeComponent)
+        .join('/');
+    final pdfUrl = Uri.base.resolve(encodedPath).toString();
     
     // ignore: undefined_prefixed_name
     ui_web.platformViewRegistry.registerViewFactory(

@@ -24,6 +24,14 @@ class HomeScreen extends StatelessWidget {
     }
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => context.push('/admin'),
+        backgroundColor: Colors.black54,
+        mini: true,
+        tooltip: 'Admin',
+        child: const Icon(Icons.admin_panel_settings_rounded, color: Colors.white),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(isSmallScreen ? 140 : 110),
         child: AppBar(
@@ -171,9 +179,9 @@ class HomeScreen extends StatelessWidget {
         Expanded(
           child: Row(
             children: [
-              _buildResponsiveImage('images/AppBar_Ico_1.png'),
+              _buildResponsiveImage('assets/images/AppBar_Ico_1.png'),
               const SizedBox(width: 18),
-              _buildResponsiveImage('images/AppBar_Ico_2.png'),
+              _buildResponsiveImage('assets/images/AppBar_Ico_2.png'),
             ],
           ),
         ),
@@ -191,7 +199,7 @@ class HomeScreen extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              _buildResponsiveImage('images/AppBar_Ico_3.png'),
+              _buildResponsiveImage('assets/images/AppBar_Ico_3.png'),
               const SizedBox(width: 18),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,11 +236,11 @@ class HomeScreen extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _buildResponsiveImage('images/AppBar_Ico_1.png', size: 40),
+            _buildResponsiveImage('assets/images/AppBar_Ico_1.png', size: 40),
             const SizedBox(width: 18),
-            _buildResponsiveImage('images/AppBar_Ico_2.png', size: 40),
+            _buildResponsiveImage('assets/images/AppBar_Ico_2.png', size: 40),
             const SizedBox(width: 18),
-            _buildResponsiveImage('images/AppBar_Ico_3.png',
+            _buildResponsiveImage('assets/images/AppBar_Ico_3.png',
                 scale: 3, size: 40),
             const SizedBox(width: 22),
           ],
