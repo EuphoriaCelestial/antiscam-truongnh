@@ -78,6 +78,17 @@ async def startup_event():
     except Exception as e:
         print(f"Database initialization error: {e}")
 
+    # Migrate: add is_admin column if it doesn't exist (for existing DBs)
+    db = SessionLocal()
+    try:
+        from sqlalchemy import text
+        db.execute(text("ALTER TABLE users ADD COLUMN IF NOT EXISTS is_admin BOOLEAN DEFAULT FALSE"))
+        db.commit()
+    except Exception:
+        pass
+    finally:
+        db.close()
+
     # Create admin user from env vars
     admin_username = os.getenv("ADMIN_USERNAME")
     admin_password = os.getenv("ADMIN_PASSWORD")
