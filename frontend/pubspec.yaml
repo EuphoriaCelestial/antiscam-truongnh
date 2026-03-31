@@ -43,8 +43,6 @@ dependencies:
   # JSON
   json_annotation: ^4.8.1
 
-  # File Picker (for admin uploads)
-  file_picker: ^8.0.0
 
 dev_dependencies:
   flutter_test:

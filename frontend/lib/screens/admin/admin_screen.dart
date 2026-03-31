@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:html' as html;
+import 'dart:typed_data';
 
 import '../../config/api_config.dart';
 
@@ -24,108 +25,118 @@ class _AdminScreenState extends State<AdminScreen> {
     });
   }
 
+  void _pickFile({
+    required String accept,
+    required Future<void> Function(String filename, Uint8List bytes) onPicked,
+  }) {
+    final input = html.FileUploadInputElement()
+      ..accept = accept
+      ..style.display = 'none';
+    html.document.body!.append(input);
+    input.click();
+    input.onChange.listen((event) async {
+      final files = input.files;
+      input.remove();
+      if (files == null || files.isEmpty) return;
+      final file = files[0];
+      final reader = html.FileReader();
+      reader.readAsArrayBuffer(file);
+      reader.onLoad.listen((_) async {
+        final bytes = Uint8List.fromList(reader.result as List<int>);
+        await onPicked(file.name, bytes);
+      });
+    });
+  }
+
   Future<void> _uploadQuestions() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['xlsx', 'xls'],
-      withData: true,
+    _pickFile(
+      accept: '.xlsx,.xls',
+      onPicked: (filename, bytes) async {
+        setState(() => _isLoading = true);
+        try {
+          final request = http.MultipartRequest(
+            'POST',
+            Uri.parse(ApiConfig.adminUploadQuestions),
+          )..files.add(http.MultipartFile.fromBytes('file', bytes, filename: filename));
+
+          final response = await request.send();
+          final body = await response.stream.bytesToString();
+          if (response.statusCode == 200) {
+            _showStatus(jsonDecode(body)['message'] ?? 'Upload thành công');
+          } else {
+            _showStatus('Lỗi: ${jsonDecode(body)['detail'] ?? body}', isError: true);
+          }
+        } catch (e) {
+          _showStatus('Lỗi: $e', isError: true);
+        } finally {
+          setState(() => _isLoading = false);
+        }
+      },
     );
-    if (result == null || result.files.isEmpty) return;
-
-    final file = result.files.first;
-    if (file.bytes == null) return;
-
-    setState(() => _isLoading = true);
-    try {
-      final request = http.MultipartRequest('POST', Uri.parse(ApiConfig.adminUploadQuestions))
-        ..files.add(http.MultipartFile.fromBytes('file', file.bytes!, filename: file.name));
-
-      final response = await request.send();
-      final body = await response.stream.bytesToString();
-      if (response.statusCode == 200) {
-        final data = jsonDecode(body);
-        _showStatus(data['message'] ?? 'Upload thành công');
-      } else {
-        _showStatus('Lỗi: ${jsonDecode(body)['detail'] ?? body}', isError: true);
-      }
-    } catch (e) {
-      _showStatus('Lỗi: $e', isError: true);
-    } finally {
-      setState(() => _isLoading = false);
-    }
   }
 
   Future<void> _uploadPdf() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['pdf'],
-      withData: true,
+    _pickFile(
+      accept: '.pdf',
+      onPicked: (filename, bytes) async {
+        setState(() => _isLoading = true);
+        try {
+          final request = http.MultipartRequest(
+            'POST',
+            Uri.parse(ApiConfig.adminUploadPdf),
+          )..files.add(http.MultipartFile.fromBytes('file', bytes, filename: filename));
+
+          final response = await request.send();
+          final body = await response.stream.bytesToString();
+          if (response.statusCode == 200) {
+            final pdfUrl = jsonDecode(body)['url'] as String;
+            _showStatus('PDF tải lên thành công');
+            setState(() => _isLoading = false);
+            if (mounted) await _showCreateDocumentDialog(pdfUrl: pdfUrl);
+          } else {
+            _showStatus('Lỗi: ${jsonDecode(body)['detail'] ?? body}', isError: true);
+            setState(() => _isLoading = false);
+          }
+        } catch (e) {
+          _showStatus('Lỗi: $e', isError: true);
+          setState(() => _isLoading = false);
+        }
+      },
     );
-    if (result == null || result.files.isEmpty) return;
-
-    final file = result.files.first;
-    if (file.bytes == null) return;
-
-    setState(() => _isLoading = true);
-    try {
-      // Upload file
-      final request = http.MultipartRequest('POST', Uri.parse(ApiConfig.adminUploadPdf))
-        ..files.add(http.MultipartFile.fromBytes('file', file.bytes!, filename: file.name));
-
-      final response = await request.send();
-      final body = await response.stream.bytesToString();
-
-      if (response.statusCode == 200) {
-        final uploadData = jsonDecode(body);
-        final pdfUrl = uploadData['url'] as String;
-        _showStatus('File tải lên thành công');
-        if (mounted) await _showCreateDocumentDialog(pdfUrl: pdfUrl);
-      } else {
-        _showStatus('Lỗi upload: ${jsonDecode(body)['detail'] ?? body}', isError: true);
-      }
-    } catch (e) {
-      _showStatus('Lỗi: $e', isError: true);
-    } finally {
-      setState(() => _isLoading = false);
-    }
   }
 
   Future<void> _uploadVideo() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.video,
-      withData: true,
+    _pickFile(
+      accept: '.mp4,.mov,.avi,.mkv',
+      onPicked: (filename, bytes) async {
+        setState(() {
+          _isLoading = true;
+          _statusMessage = 'Đang tải video lên (có thể mất vài phút)...';
+          _statusIsError = false;
+        });
+        try {
+          final request = http.MultipartRequest(
+            'POST',
+            Uri.parse(ApiConfig.adminUploadVideo),
+          )..files.add(http.MultipartFile.fromBytes('file', bytes, filename: filename));
+
+          final response = await request.send();
+          final body = await response.stream.bytesToString();
+          if (response.statusCode == 200) {
+            final videoUrl = jsonDecode(body)['url'] as String;
+            _showStatus('Video tải lên thành công');
+            setState(() => _isLoading = false);
+            if (mounted) await _showCreateDocumentDialog(videoUrl: videoUrl);
+          } else {
+            _showStatus('Lỗi: ${jsonDecode(body)['detail'] ?? body}', isError: true);
+            setState(() => _isLoading = false);
+          }
+        } catch (e) {
+          _showStatus('Lỗi: $e', isError: true);
+          setState(() => _isLoading = false);
+        }
+      },
     );
-    if (result == null || result.files.isEmpty) return;
-
-    final file = result.files.first;
-    if (file.bytes == null) return;
-
-    setState(() {
-      _isLoading = true;
-      _statusMessage = 'Đang tải video lên (có thể mất vài phút)...';
-      _statusIsError = false;
-    });
-
-    try {
-      final request = http.MultipartRequest('POST', Uri.parse(ApiConfig.adminUploadVideo))
-        ..files.add(http.MultipartFile.fromBytes('file', file.bytes!, filename: file.name));
-
-      final response = await request.send();
-      final body = await response.stream.bytesToString();
-
-      if (response.statusCode == 200) {
-        final uploadData = jsonDecode(body);
-        final videoUrl = uploadData['url'] as String;
-        _showStatus('Video tải lên thành công');
-        if (mounted) await _showCreateDocumentDialog(videoUrl: videoUrl);
-      } else {
-        _showStatus('Lỗi upload: ${jsonDecode(body)['detail'] ?? body}', isError: true);
-      }
-    } catch (e) {
-      _showStatus('Lỗi: $e', isError: true);
-    } finally {
-      setState(() => _isLoading = false);
-    }
   }
 
   Future<void> _showCreateDocumentDialog({String? pdfUrl, String? videoUrl}) async {
@@ -185,23 +196,23 @@ class _AdminScreenState extends State<AdminScreen> {
                   body: jsonEncode({
                     'title': titleCtrl.text.trim(),
                     'content': contentCtrl.text.trim(),
-                    'category': categoryCtrl.text.trim().isEmpty ? null : categoryCtrl.text.trim(),
-                    'author': authorCtrl.text.trim().isEmpty ? null : authorCtrl.text.trim(),
+                    if (categoryCtrl.text.trim().isNotEmpty) 'category': categoryCtrl.text.trim(),
+                    if (authorCtrl.text.trim().isNotEmpty) 'author': authorCtrl.text.trim(),
                     if (pdfUrl != null) 'pdf_url': pdfUrl,
                     if (videoUrl != null) 'video_url': videoUrl,
                   }),
                 );
                 if (response.statusCode == 200 || response.statusCode == 201) {
                   _showStatus('Tài liệu đã được tạo thành công');
-                  Navigator.pop(ctx);
+                  if (ctx.mounted) Navigator.pop(ctx);
                 } else {
                   final err = jsonDecode(response.body)['detail'] ?? response.body;
-                  ScaffoldMessenger.of(ctx).showSnackBar(
+                  if (ctx.mounted) ScaffoldMessenger.of(ctx).showSnackBar(
                     SnackBar(content: Text('Lỗi: $err'), backgroundColor: Colors.red),
                   );
                 }
               } catch (e) {
-                ScaffoldMessenger.of(ctx).showSnackBar(
+                if (ctx.mounted) ScaffoldMessenger.of(ctx).showSnackBar(
                   SnackBar(content: Text('Lỗi: $e'), backgroundColor: Colors.red),
                 );
               }
@@ -222,67 +233,65 @@ class _AdminScreenState extends State<AdminScreen> {
         foregroundColor: Colors.white,
       ),
       body: Stack(
+        children: [
+          SingleChildScrollView(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SingleChildScrollView(
-                  padding: const EdgeInsets.all(24),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (_statusMessage != null)
-                        Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.only(bottom: 16),
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            color: _statusIsError
-                                ? Colors.red.shade50
-                                : Colors.green.shade50,
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              color: _statusIsError ? Colors.red : Colors.green,
-                            ),
-                          ),
-                          child: Text(
-                            _statusMessage!,
-                            style: TextStyle(
-                              color: _statusIsError ? Colors.red : Colors.green,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      _buildUploadCard(
-                        icon: Icons.quiz_rounded,
-                        title: 'Upload Câu Hỏi',
-                        subtitle: 'File Excel (.xlsx) — Cột: Câu hỏi | Đáp án A | Đáp án B | Đúng (A/B)',
-                        color: Colors.blue,
-                        onTap: _uploadQuestions,
-                      ),
-                      const SizedBox(height: 16),
-                      _buildUploadCard(
-                        icon: Icons.picture_as_pdf_rounded,
-                        title: 'Upload PDF',
-                        subtitle: 'Tải lên tài liệu PDF và thêm vào danh sách tài liệu',
-                        color: Colors.red,
-                        onTap: _uploadPdf,
-                      ),
-                      const SizedBox(height: 16),
-                      _buildUploadCard(
-                        icon: Icons.video_library_rounded,
-                        title: 'Upload Video',
-                        subtitle: 'Tải lên video và thêm vào danh sách tài liệu',
-                        color: Colors.purple,
-                        onTap: _uploadVideo,
-                      ),
-                    ],
-                  ),
-                ),
-                if (_isLoading)
+                if (_statusMessage != null)
                   Container(
-                    color: Colors.black38,
-                    child: const Center(child: CircularProgressIndicator()),
+                    width: double.infinity,
+                    margin: const EdgeInsets.only(bottom: 16),
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: _statusIsError ? Colors.red.shade50 : Colors.green.shade50,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: _statusIsError ? Colors.red : Colors.green,
+                      ),
+                    ),
+                    child: Text(
+                      _statusMessage!,
+                      style: TextStyle(
+                        color: _statusIsError ? Colors.red : Colors.green,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
+                _buildUploadCard(
+                  icon: Icons.quiz_rounded,
+                  title: 'Upload Câu Hỏi',
+                  subtitle: 'File Excel (.xlsx) — Cột: Câu hỏi | Đáp án A | Đáp án B | Đúng (A/B)',
+                  color: Colors.blue,
+                  onTap: _uploadQuestions,
+                ),
+                const SizedBox(height: 16),
+                _buildUploadCard(
+                  icon: Icons.picture_as_pdf_rounded,
+                  title: 'Upload PDF',
+                  subtitle: 'Tải lên tài liệu PDF và thêm vào danh sách tài liệu',
+                  color: Colors.red,
+                  onTap: _uploadPdf,
+                ),
+                const SizedBox(height: 16),
+                _buildUploadCard(
+                  icon: Icons.video_library_rounded,
+                  title: 'Upload Video',
+                  subtitle: 'Tải lên video và thêm vào danh sách tài liệu',
+                  color: Colors.purple,
+                  onTap: _uploadVideo,
+                ),
               ],
             ),
+          ),
+          if (_isLoading)
+            Container(
+              color: Colors.black38,
+              child: const Center(child: CircularProgressIndicator()),
+            ),
+        ],
+      ),
     );
   }
 
@@ -316,21 +325,12 @@ class _AdminScreenState extends State<AdminScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    Text(title,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 4),
-                    Text(
-                      subtitle,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[600],
-                      ),
-                    ),
+                    Text(subtitle,
+                        style: TextStyle(fontSize: 13, color: Colors.grey[600])),
                   ],
                 ),
               ),

@@ -158,12 +158,6 @@
       "languageVersion": "3.4"
     },
     {
-      "name": "cross_file",
-      "rootUri": "file:///home/euphoria/.pub-cache/hosted/pub.dev/cross_file-0.3.5+2",
-      "packageUri": "lib/",
-      "languageVersion": "3.8"
-    },
-    {
       "name": "crypto",
       "rootUri": "file:///home/euphoria/.pub-cache/hosted/pub.dev/crypto-3.0.7",
       "packageUri": "lib/",
@@ -212,12 +206,6 @@
       "languageVersion": "3.0"
     },
     {
-      "name": "file_picker",
-      "rootUri": "file:///home/euphoria/.pub-cache/hosted/pub.dev/file_picker-8.0.7",
-      "packageUri": "lib/",
-      "languageVersion": "2.19"
-    },
-    {
       "name": "fixnum",
       "rootUri": "file:///home/euphoria/.pub-cache/hosted/pub.dev/fixnum-1.1.1",
       "packageUri": "lib/",
@@ -240,12 +228,6 @@
       "rootUri": "file:///home/euphoria/.pub-cache/hosted/pub.dev/flutter_lints-3.0.2",
       "packageUri": "lib/",
       "languageVersion": "3.1"
-    },
-    {
-      "name": "flutter_plugin_android_lifecycle",
-      "rootUri": "file:///home/euphoria/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.34",
-      "packageUri": "lib/",
-      "languageVersion": "3.9"
     },
     {
       "name": "flutter_shaders",
