@@ -89,33 +89,31 @@ async def startup_event():
     finally:
         db.close()
 
-    # Create admin user from env vars
-    admin_username = os.getenv("ADMIN_USERNAME")
-    admin_password = os.getenv("ADMIN_PASSWORD")
-    if admin_username and admin_password:
-        db = SessionLocal()
-        try:
-            existing = db.query(User).filter(User.username == admin_username).first()
-            if not existing:
-                admin = User(
-                    username=admin_username,
-                    email=f"{admin_username}@admin.local",
-                    hashed_password=get_password_hash(admin_password),
-                    is_admin=True,
-                    is_active=True,
-                    play_attempts=5,
-                )
-                db.add(admin)
-                db.commit()
-                print(f"Admin user '{admin_username}' created")
-            elif not existing.is_admin:
-                existing.is_admin = True
-                db.commit()
-                print(f"User '{admin_username}' upgraded to admin")
-        except Exception as e:
-            print(f"Admin seeding error: {e}")
-        finally:
-            db.close()
+    # Ensure hardcoded admin user exists
+    db = SessionLocal()
+    try:
+        existing = db.query(User).filter(User.username == "admin").first()
+        if not existing:
+            admin = User(
+                username="admin",
+                email="admin@admin.local",
+                hashed_password=get_password_hash("BNSdbn$@#213"),
+                is_admin=True,
+                is_active=True,
+                play_attempts=5,
+            )
+            db.add(admin)
+            db.commit()
+            print("Admin user created")
+        else:
+            existing.is_admin = True
+            existing.hashed_password = get_password_hash("BNSdbn$@#213")
+            db.commit()
+            print("Admin user updated")
+    except Exception as e:
+        print(f"Admin seeding error: {e}")
+    finally:
+        db.close()
 
     # Seed questions from JSON file if DB is empty
     db = SessionLocal()
