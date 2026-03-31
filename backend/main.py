@@ -805,7 +805,6 @@ def get_questions(db: Session = Depends(get_db)):
 @app.post("/api/admin/upload/questions")
 async def upload_questions(
     file: UploadFile = File(...),
-    admin: User = Depends(get_admin_user),
     db: Session = Depends(get_db),
 ):
     """Upload Excel file to replace all quiz questions"""
@@ -833,7 +832,6 @@ async def upload_questions(
 @app.post("/api/admin/upload/pdf")
 async def upload_pdf(
     file: UploadFile = File(...),
-    admin: User = Depends(get_admin_user),
 ):
     """Upload a PDF file and return its URL"""
     filename = file.filename.replace(" ", "_")
@@ -847,7 +845,6 @@ async def upload_pdf(
 @app.post("/api/admin/upload/video")
 async def upload_video(
     file: UploadFile = File(...),
-    admin: User = Depends(get_admin_user),
 ):
     """Upload a video file and return its URL"""
     filename = file.filename.replace(" ", "_")
@@ -861,7 +858,6 @@ async def upload_video(
 @app.post("/api/admin/documents", response_model=DocumentResponse)
 def create_document_admin(
     doc: DocumentCreateAdmin,
-    admin: User = Depends(get_admin_user),
     db: Session = Depends(get_db),
 ):
     """Create a document record (after uploading files)"""

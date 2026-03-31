@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:http/http.dart' as http;
@@ -14,100 +13,15 @@ class AdminScreen extends StatefulWidget {
 }
 
 class _AdminScreenState extends State<AdminScreen> {
-  String? _token;
-  bool _isLoggedIn = false;
   bool _isLoading = false;
   String? _statusMessage;
   bool _statusIsError = false;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _showLoginDialog());
-  }
 
   void _showStatus(String message, {bool isError = false}) {
     setState(() {
       _statusMessage = message;
       _statusIsError = isError;
     });
-  }
-
-  Future<void> _showLoginDialog() async {
-    final usernameCtrl = TextEditingController();
-    final passwordCtrl = TextEditingController();
-
-    final result = await showDialog<bool>(
-      context: context,
-      barrierDismissible: false,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Đăng nhập Admin'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: usernameCtrl,
-              decoration: const InputDecoration(
-                labelText: 'Tên đăng nhập',
-                prefixIcon: Icon(Icons.person),
-              ),
-            ),
-            const SizedBox(height: 12),
-            TextField(
-              controller: passwordCtrl,
-              obscureText: true,
-              decoration: const InputDecoration(
-                labelText: 'Mật khẩu',
-                prefixIcon: Icon(Icons.lock),
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Hủy'),
-          ),
-          ElevatedButton(
-            onPressed: () async {
-              try {
-                final response = await http.post(
-                  Uri.parse(ApiConfig.login),
-                  headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                  body: {
-                    'username': usernameCtrl.text.trim(),
-                    'password': passwordCtrl.text,
-                  },
-                );
-                if (response.statusCode == 200) {
-                  final data = jsonDecode(response.body);
-                  _token = data['access_token'];
-                  Navigator.pop(ctx, true);
-                } else {
-                  ScaffoldMessenger.of(ctx).showSnackBar(
-                    const SnackBar(
-                      content: Text('Sai tên đăng nhập hoặc mật khẩu'),
-                      backgroundColor: Colors.red,
-                    ),
-                  );
-                }
-              } catch (e) {
-                ScaffoldMessenger.of(ctx).showSnackBar(
-                  SnackBar(content: Text('Lỗi kết nối: $e'), backgroundColor: Colors.red),
-                );
-              }
-            },
-            child: const Text('Đăng nhập'),
-          ),
-        ],
-      ),
-    );
-
-    if (result == true && _token != null) {
-      setState(() => _isLoggedIn = true);
-    } else if (mounted) {
-      Navigator.pop(context);
-    }
   }
 
   Future<void> _uploadQuestions() async {
@@ -124,7 +38,6 @@ class _AdminScreenState extends State<AdminScreen> {
     setState(() => _isLoading = true);
     try {
       final request = http.MultipartRequest('POST', Uri.parse(ApiConfig.adminUploadQuestions))
-        ..headers['Authorization'] = 'Bearer $_token'
         ..files.add(http.MultipartFile.fromBytes('file', file.bytes!, filename: file.name));
 
       final response = await request.send();
@@ -157,7 +70,6 @@ class _AdminScreenState extends State<AdminScreen> {
     try {
       // Upload file
       final request = http.MultipartRequest('POST', Uri.parse(ApiConfig.adminUploadPdf))
-        ..headers['Authorization'] = 'Bearer $_token'
         ..files.add(http.MultipartFile.fromBytes('file', file.bytes!, filename: file.name));
 
       final response = await request.send();
@@ -196,7 +108,6 @@ class _AdminScreenState extends State<AdminScreen> {
 
     try {
       final request = http.MultipartRequest('POST', Uri.parse(ApiConfig.adminUploadVideo))
-        ..headers['Authorization'] = 'Bearer $_token'
         ..files.add(http.MultipartFile.fromBytes('file', file.bytes!, filename: file.name));
 
       final response = await request.send();
@@ -270,10 +181,7 @@ class _AdminScreenState extends State<AdminScreen> {
               try {
                 final response = await http.post(
                   Uri.parse(ApiConfig.adminDocuments),
-                  headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer $_token',
-                  },
+                  headers: {'Content-Type': 'application/json'},
                   body: jsonEncode({
                     'title': titleCtrl.text.trim(),
                     'content': contentCtrl.text.trim(),
@@ -313,9 +221,7 @@ class _AdminScreenState extends State<AdminScreen> {
         backgroundColor: const Color(0xFF0891B2),
         foregroundColor: Colors.white,
       ),
-      body: !_isLoggedIn
-          ? const Center(child: CircularProgressIndicator())
-          : Stack(
+      body: Stack(
               children: [
                 SingleChildScrollView(
                   padding: const EdgeInsets.all(24),
